@@ -33,19 +33,22 @@ function onCreate() {
 }
 
 function onChangeDocKind() {
-  if (EdocsApi.getAttributeValue("DocKind")?.value == `Договір з доступу до об’єкта інфраструктури залізничного транспорту`) {
-    EdocsApi.setControlProperties({ code: "Town", hidden: false, disabled: false, required: true });
-    EdocsApi.setControlProperties({ code: "Place", hidden: false, disabled: false, required: true });
-    EdocsApi.setControlProperties({ code: "District", hidden: false, disabled: false, required: true });
-  } else {
-    EdocsApi.setControlProperties({ code: "Town", hidden: true, disabled: true, required: false });
-    EdocsApi.setControlProperties({ code: "Place", hidden: true, disabled: true, required: false });
-    EdocsApi.setControlProperties({ code: "District", hidden: true, disabled: true, required: false });
-    setAttributeValue("Town", "");
-    setAttributeValue("Place", "");
-    setAttributeValue("District", "");
+  if (new Date(CurrentDocument.created) > new Date("2024-01-01")) {
+    if (EdocsApi.getAttributeValue("DocKind")?.value == `Договір з доступу до об’єкта інфраструктури залізничного транспорту`) {
+      EdocsApi.setControlProperties({ code: "Town", hidden: false, disabled: false, required: true });
+      EdocsApi.setControlProperties({ code: "Place", hidden: false, disabled: false, required: true });
+      EdocsApi.setControlProperties({ code: "District", hidden: false, disabled: false, required: true });
+    } else {
+      EdocsApi.setControlProperties({ code: "Town", hidden: true, disabled: true, required: false });
+      EdocsApi.setControlProperties({ code: "Place", hidden: true, disabled: true, required: false });
+      EdocsApi.setControlProperties({ code: "District", hidden: true, disabled: true, required: false });
+      setAttributeValue("Town", "");
+      setAttributeValue("Place", "");
+      setAttributeValue("District", "");
+    }
   }
 }
+
 function onChangeDocInitiator() {
   debugger;
   var initiator = EdocsApi.getAttributeValue("DocInitiator");
